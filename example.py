@@ -63,14 +63,19 @@ def main(argv):
         trip = Trip(start_date, end_date, location, latitude, longitude)
         trips.append(trip)
 
-    previous_trip = None
+    # This all started from Edinburgh
+    previous_trip = Trip(0, 0, "Edinburgh, United Kingdom", 55.9500, 3.2200)
     total_distance = 0
+
+    print "To\tStart Date\tEnd Date\tTravelled distance"
 
     for trip in trips:
         distance = 0
         if previous_trip:
             distance = haversine(previous_trip.longitude, previous_trip.latitude, trip.longitude, trip.latitude)
-        print "Travel to %s from %s to %s travelled distance %s" % (trip.location, trip.start_date, trip.end_date, distance)
+
+        print "%s\t%s\t%s\t%s" % (trip.location, trip.start_date, trip.end_date, distance)
+
         previous_trip = trip
         total_distance += distance
 
