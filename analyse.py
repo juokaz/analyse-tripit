@@ -81,5 +81,20 @@ def main(argv):
 
     print "Total travelling distance %s" % total_distance
 
+    print "<table>"
+    print "<tr><td>To</td><td>Start Date</td><td>End Date</td><td>Travelled distance</td></tr>"
+
+    for trip in trips:
+        distance = 0
+        if previous_trip:
+            distance = haversine(previous_trip.longitude, previous_trip.latitude, trip.longitude, trip.latitude)
+
+        print "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (trip.location, trip.start_date, trip.end_date, int(distance))
+
+        previous_trip = trip
+        total_distance += distance
+
+    print "</table>"
+
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
